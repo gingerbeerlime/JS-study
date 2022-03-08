@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>단위변환2</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            //현재값
+            let current
+            //변환상수
+            let changeUnit = 10
+
+            const select = document.querySelector('select')
+            const input = document.querySelector('input')
+            const span = document.querySelector('span')
+            const p = document.querySelector('p')
+
+            const calculate = () => {
+                span.textContent = (current * changeUnit).toFixed(2)
+            }
+
+            select.addEventListener('change', (event) => {
+                const options = event.currentTarget.options
+                const index = event.currentTarget.options.selectedIndex
+                changeUnit = Number(options[index].value)
+                calculate()
+            })
+
+            input.addEventListener('keyup', (event) => {
+                current = Number(event.currentTarget.value)
+                if(isNaN(current)) {
+                    p.textContent = '숫자를 입력해주세요'
+                } else {
+                    p.textContent = ''
+                    calculate()
+                }
+            })
+
+
+
+        })
+    </script>
+</head>
+<body>
+    <input type="text"> cm =
+    <span></span>
+    <select>
+        <option value="10">mm</option>
+        <option value="0.01">m</option>
+        <option value="0.393701">inch</option>
+    </select>
+    <p></p>
+</body>
+</html>
