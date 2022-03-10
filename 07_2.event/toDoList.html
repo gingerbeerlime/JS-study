@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>to do list</title>
+    <script src="https://kit.fontawesome.com/14410e483b.js" crossorigin="anonymous"></script>
+    <style>
+        @font-face {
+            font-family: 'LeferiPoint-BlackA';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-BlackA.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        #post {
+            width: 300px;
+            height: 500px;
+            background-color: lightyellow;
+            box-shadow: 0 0 6px #333;
+        }
+        h2 {
+            font-family: 'LeferiPoint-BlackA';
+            font-size: 25px;
+            line-height: 70px;
+            color: #333;
+            padding-left: 10px;
+            border-bottom: 1px solid #333;
+        }
+        i {
+            padding-right: 10px;
+        }
+        p {
+            font-family: 'LeferiPoint-BlackA';
+            font-size: 18px;
+            line-height: 35px;
+            color: #333;
+            padding-left: 10px;
+        }
+        input {
+            margin-right: 10px;
+        }
+        button {
+            margin-top: 10px;
+            font-family: 'LeferiPoint-BlackA';
+            font-size: 18px;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 문서 객체 가져오기
+            const input = document.querySelector('#todo')
+            const todoList = document.querySelector('#todo-list')
+            const addButton = document.querySelector('#add-button')
+
+            // 변수를 선언합니다.
+            let keyCount = 0
+
+            // 할 일 추가 함수를 선언합니다.
+            const addTodo = () => {
+                // 1) 공란이면 리턴
+                if (input.value.trim === '') {
+                    alert('할 일을 입력해주세요')
+                    return
+                }
+                // 2) 문서 객체 생성
+                const item = document.createElement('div')
+                const checkbox = document.createElement('input')
+                const text = document.createElement('span')
+                const button = document.createElement('button')
+
+                // 3) 문서 객체를 식별할 키
+                //console.log(keyCount)
+                const key = keyCount
+                keyCount += 1
+
+                // 4) item 객체를 조작하고 추가
+                item.setAttribute('data-key', key)
+                item.appendChild(checkbox)
+                item.appendChild(text)
+                item.appendChild(button)
+                todoList.appendChild(item)
+
+                // 5) checkbox 객체 조작
+                checkbox.type = 'checkbox'
+                checkbox.addEventListener('change', (event) => {
+                    item.style.textDecoration
+                     = event.target.checked ? 'line-through' : ''
+                })
+                
+                // 6) text 객체 조작 : span에 할 일 입력값 넣기
+                text.textContent = input.value
+
+                // 7) button 객체 조작
+                button.textContent = '삭제'
+                button.addEventListener('click', () => {
+                    removeTodo(key)
+                })
+
+                // 8) input 입력창 초기화
+                input.value = ''
+
+                const removeTodo = (key) => {
+                    // 식별키로 문서객체 제거
+                    const item = document.querySelector(`[data-key="${key}"]`)
+                    todoList.removeChild(item)
+                }
+ 
+            
+            }
+            // 이벤트 연결
+            addButton.addEventListener('click', addTodo)
+            input.addEventListener('keyup', (event) => {
+                if (event.keyCode === 13) {
+                    addTodo()
+                }
+            })
+            })
+        
+    </script>
+</head>
+<body>
+    <div id="post">
+        <h2><i class="fa-solid fa-clover"></i>오늘의 할 일!</h2>
+        <div id="todo-list"></div>
+    </div>
+    <input id="todo" type="text"><button id="add-button" type="button">할 일 추가하기</button>
+</html>
