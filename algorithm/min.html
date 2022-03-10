@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>최솟값</title>
+    </head>
+    <body>
+        <script>
+            solution = (a, b, c) => {
+               let answer;
+               
+               if(a < b) answer = a
+               else answer = b
+               if(c < answer) answer = c
+
+               return answer
+            }
+
+            console.log(solution(4, 2, 8))
+        </script>
+    </body>
+</html>
