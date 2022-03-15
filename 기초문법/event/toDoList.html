@@ -59,7 +59,7 @@
             // 할 일 추가 함수를 선언합니다.
             const addTodo = () => {
                 // 1) 공란이면 리턴
-                if (input.value.trim === '') {
+                if (input.value.trim() === '') {
                     alert('할 일을 입력해주세요')
                     return
                 }

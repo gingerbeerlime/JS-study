@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>toString() override</title>
+    <script>
+        class Pet {
+            constructor(name, age) {
+                this.name = name,
+                this.age = age
+            }
+            // object객체의 toString()메소드를 오버라이드
+            toString() {
+                return `이름: ${this.name}\n나이: ${this.age}살`
+            }
+        }
+
+        const pet = new Pet('구름', 6)
+        // 자바스크립트는 내부적으로 어떤 객체를 문자열로 만들 때 toString()메소드를 호출
+        alert(pet)
+        console.log(pet + '')
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
