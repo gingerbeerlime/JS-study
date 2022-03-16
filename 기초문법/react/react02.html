@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>표현식 출력</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        // 상수 선언
+        const name = '우유'
+        const imgUrl = 'http://placedog.net/400/200'
+
+        // 컴포넌트와 컨테이너 생성하기
+        const component = <div>
+            <h1>{name}귀여워</h1>
+            <img src={imgUrl} />
+        </div>
+        const container = document.getElementById('root')
+
+        // 출력
+        ReactDOM.render(component, container)
+    </script>
+</body>
+</html>
