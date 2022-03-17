@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>표현식 출력</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        class App extends React.Component {
+            constructor(props) {
+                super(props)
+                this.state = {
+                    time: new Date()
+                }
+            }
+
+            componentDidMount() {
+                this.timerId = setInterval(() => {
+                    this.setState({
+                        timer: new Date()
+                    })
+                }, 1000)
+            }
+
+            componentWillUnmount () {
+                clearInterval(this.timerId)
+            }
+
+            render() {
+                return <ul>
+                    <Item value={this.state.time.toLocaleString()} />
+                    <Item value={this.state.time.toLocaleString()} />
+                    <Item value={this.state.time.toLocaleString()} />
+                </ul>
+            }
+        }
+
+        class Item extends React.Component {
+            constructor(props) {
+            super(props)
+            this.state = {
+                value: props.value
+            }
+        }
+
+        componentDidUpdate(prevProps) {
+            if(prevProps.value !== this.props.value) {
+                this.setState({
+                    value: this.props.value
+                })
+            }
+        }
+
+        render() {
+            return <li>{this.state.value}</li>
+        }
+
+        }
+
+
+        const container = document.getElementById('root')
+        ReactDOM.render(<App />, container)
+       
+    </script>
+</body>
+</html>
