@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>팰린드롬</title>
+    </head>
+    <body>
+        <script>
+            function solution(s){
+                let answer="YES";
+                s = s.toLowerCase();
+                // 소문자 a-z를 제외하고 모두 삭제
+                s = s.replace(/[^a-z]/g, "")
+                let len = s.length;
+                for(let i = 0; i < len; i++) {
+                    if(s[i] !== s[len-1-i]) return "NO"
+                }
+
+                return answer;
+            }
+            
+            let str="found7, time: study; Yduts; emit, 7Dnuof";
+            console.log(solution(str));
+        </script>
+        
+    </body>
+</html>
