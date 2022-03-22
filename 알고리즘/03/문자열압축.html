@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>문자열 압축</title>
+    </head>
+    <body>
+        <script>
+            function solution(s){
+                let answer="";
+                let cur = s[0];
+                let num = 1;
+                answer += s[0];
+                for(let i = 1; i < s.length; i++) {
+                    if(cur !== s[i]) {
+                        if(num !== 1) {
+                            answer += String(num);
+                        }
+                        num = 1;
+                        cur = s[i];
+                        answer += cur;
+                    } else {
+                        num++;
+                    }
+                }
+                return answer;
+            }
+            
+            let str="KKHSSSSSSSE";
+            console.log(solution(str));
+        </script>
+    </body>
+</html>
