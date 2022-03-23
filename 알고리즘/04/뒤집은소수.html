@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>뒤집은 소수</title>
+    </head>
+    <body>
+        <script>
+            function isPrime(arr){
+                let answer = [];
+                let newArr = [];
+                for(const x of arr) {
+                    newArr.push(parseInt((x + "").split("").reverse().join("")));
+                }
+             
+                let cnt = 0;
+                for(const x of newArr) {
+                    cnt = 0;
+                    for(let i = 2; i < x; i++) {
+                        if((x % i) === 0) {
+                            cnt++;
+                            break;
+                        }
+                    }
+                    if(cnt === 0 && x !== 1) answer.push(x);
+                }
+                return answer;
+            }
+            let arr=[32, 55, 62, 20, 250, 370, 200, 30, 100];
+            console.log(isPrime(arr));
+        </script>
+    </body>
+</html>
