@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>졸업선물</title>
+    </head>
+    <body>
+        <script>
+            function solution(m, product){
+                let answer=0;
+                let max = Number.MIN_SAFE_INTEGER;
+                let maxIndex = 0;
+                let newArray = [];
+                // 가장 비싼 상품 50% 할인
+                for(let i=0; i < product.length; i++) {
+                    if(product[i][0] > max) {
+                        max = product[i][0];
+                        maxIndex = i;
+                    }
+                }
+                product[maxIndex][0] = product[maxIndex][0] / 2;
+
+                // 상품의 가격과 배송비를 합쳐 오름차순으로 배열 정렬
+                for(let i=0; i < product.length; i++) {
+                    newArray.push(product[i][0] + product[i][1]);
+                }
+                newArray.sort(function(a, b) {
+                    return a - b;
+                });
+                
+                // 상품+배송비 가격이 낮은 것부터 총 예산에서 빼며 살 수 있는 최대 선물 수를 구함
+                for(let x of newArray) {
+                    if((m - x) >= 0) {
+                        m = m - x;
+                        answer++;
+                    } else break;
+                }
+                 
+                return answer;
+            }
+            
+            let arr=[[6, 6], [2, 2], [4, 3], [4, 5], [10, 3]];
+            console.log(solution(28, arr));
+        </script>
+    </body>
+</html>
