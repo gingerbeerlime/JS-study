@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>자리수의 합</title>
+    </head>
+    <body>
+        <script>
+            function solution(n, arr){
+                let answer = 0;
+                let max = Number.MIN_SAFE_INTEGER;
+                let sum = 0;
+                let cur = [];
+
+                for(let i=0; i < n; i++) {
+                   cur = (arr[i] + "").split("");
+                   sum = 0;
+                   for(let x of cur) {
+                       sum += Number(x);
+                   }
+                   console.log(sum);
+                   if(sum >= max) {
+                       if(sum === max) {
+                            if(arr[i] > answer) answer = arr[i];
+                       } else {
+                           max = sum;
+                           answer = arr[i];
+                       }
+                   }
+                }
+
+
+                return answer;
+            }
+            
+            let arr=[128, 460, 603, 40, 521, 137, 123];
+            console.log(solution(7, arr));
+        </script>
+    </body>
+</html>
