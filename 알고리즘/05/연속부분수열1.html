@@ -6,21 +6,24 @@
     <body>
         <script>
             function solution(m, arr){
-                let answer=0, lt=0, sum=0;
-                for(let i=0; i < arr.length - 1; i++) {
+                let answer=0;
+                let lt=rt=0;
+                let sum=0;
+                while(rt < arr.length) {
+                    if(lt === rt) rt++;
                     sum = 0;
-                    sum += arr[i];
-                    if(sum === m) {
-                        answer++;
-                        continue;
+                    for(let i=lt; i<=rt; i++) {
+                        sum += arr[i];
                     }
-                    for(let j=i+1; j < arr.length; j++) {
-                        sum += arr[j];
-                        if(sum < m) continue;
-                        else if(sum === m) answer++;
-                        else if(sum > m) break;
+                    if(sum < m) rt++;
+                    else if(sum === m) {
+                        answer++;
+                        lt++;
+                    } else {
+                        lt++;
                     }
                 }
+                
                 
                 return answer;
             }
