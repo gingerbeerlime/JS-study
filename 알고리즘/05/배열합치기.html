@@ -1,16 +1,23 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>두 배열 합치기</title>
+        <title>두 배열 합치기(투 포인터 알고리즘)</title>
     </head>
     <body>
         <script>
             function solution(arr1, arr2){
                 let answer=[];
-                answer = arr1.concat(arr2);
-                answer.sort(function(a, b) {
-                    return a - b;
-                })
+                let n = arr1.length;
+                let m = arr2.length;
+                // 포인터 선언, 위치 0으로 초기화
+                let p1=p2=0;
+                while(p1 < n && p2 < m) {
+                    if(arr1[p1] <= arr2[p2]) answer.push(arr1[p1++]);
+                    else answer.push(arr2[p2++]);
+                }
+                // 남은 배열 붙이기
+                while(p1 < n) answer.push(arr1[p1++]);
+                while(p2 < m) answer.push(arr2[p2++]);
 
                 return answer;
             }

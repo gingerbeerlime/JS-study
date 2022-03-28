@@ -7,34 +7,23 @@
         <script>
             function solution(m, product){
                 let answer=0;
-                let max = Number.MIN_SAFE_INTEGER;
-                let maxIndex = 0;
-                let newArray = [];
-                // 가장 비싼 상품 50% 할인
-                for(let i=0; i < product.length; i++) {
-                    if(product[i][0] > max) {
-                        max = product[i][0];
-                        maxIndex = i;
+                let n = product.length;
+                // 상품별 상품비+배송비 합 오름차순 정렬
+                product.sort((a, b) => ((a[0]+a[1])) - (b[0]+b[1]));
+                // 각 상품별 50%할인 받았을 때 모든 경우의 수 구하기
+                for(let i=0; i<n; i++) {
+                    let money = m - (product[i][0]/2 + product[i][1]);
+                    let cnt = 1;
+                    for(let j= 0; j<n; j++) {
+                        if(j !== i && ((product[j][0] + product[j][1]) > money)) break;
+                        else if(j !== i && ((product[j][0] + product[j][1]) <= money)) {
+                            money -= (product[j][0] + product[j][1]);
+                            cnt++;
+                        }
                     }
+                    // 경우의 수가 가장 많은 케이스 답안 출력
+                    answer=Math.max(answer, cnt);
                 }
-                product[maxIndex][0] = product[maxIndex][0] / 2;
-
-                // 상품의 가격과 배송비를 합쳐 오름차순으로 배열 정렬
-                for(let i=0; i < product.length; i++) {
-                    newArray.push(product[i][0] + product[i][1]);
-                }
-                newArray.sort(function(a, b) {
-                    return a - b;
-                });
-                
-                // 상품+배송비 가격이 낮은 것부터 총 예산에서 빼며 살 수 있는 최대 선물 수를 구함
-                for(let x of newArray) {
-                    if((m - x) >= 0) {
-                        m = m - x;
-                        answer++;
-                    } else break;
-                }
-                 
                 return answer;
             }
             
