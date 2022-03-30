@@ -1,19 +1,20 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>학급회장</title>
+        <title>학급회장(해쉬)</title>
     </head>
     <body>
         <script>
             function solution(s){  
                 let answer;
+                let max = Number.MIN_SAFE_INTEGER;
                 let sH = new Map();
-                
+
                 for(let x of s) {
                     if(sH.has(x)) sH.set(x, sH.get(x)+1);
                     else sH.set(x, 1);
                 }
-                let max = Number.MIN_SAFE_INTEGER;
+
                 for(let [key, val] of sH) {
                     if(val > max) {
                         max = val;
