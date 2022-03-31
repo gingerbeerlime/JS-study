@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>모든 아나그램</title>
+    </head>
+    <body>
+        <script>
+            let count = 0;
+            function compareMaps(map1, map2){
+                
+                for(let [key, value] of map2) {
+                    // key비교 + key값에 대응하는 value비교
+                    // 같은 키를 갖고 있지 않거나, 같은 키를 가지더라도 대응하는 value가 다른 경우 return false;
+                    if(!map1.has(key) || map1.get(key) != value) return false;
+                }
+                
+                return true; 
+            }
+            function solution(s, t){
+                let answer=0;
+                let k = t.length;
+                let slideMap = new Map();
+                let tMap = new Map();
+
+
+                // 슬라이딩될 문자열 맵 초기화
+                for(let i = 0; i < k; i++) {
+                    if(slideMap.has(s[i])) slideMap.set(s[i], slideMap.get(s[i])+1);
+                    else slideMap.set(s[i], 1);
+
+                }
+                // 아나그램 비교 문자열 맵 초기화
+                for(let j = 0; j < k; j++) {
+                    if(tMap.has(t[j])) tMap.set(t[j], tMap.get(t[j])+1);
+                    else tMap.set(t[j], 1);
+                }
+                
+
+                // 초기화된 맵으로 비교함수 초기실행
+                if(compareMaps(slideMap, tMap)) answer++;
+
+                //슬라이딩맵 돌기
+                for(let i = k; i < s.length; i++) {
+
+                    // 1) 새로운 값 추가
+                    // 이미 똑같은 key가 있으면 value += 1
+                    if(slideMap.has(s[i])) slideMap.set(s[i], slideMap.get(s[i])+1);
+                    // 똑같은 key가 없으면 value:1로 새로 세팅
+                    else slideMap.set(s[i], 1);
+                    // 2) 맨 왼쪽 값 삭제
+                    // 해당값의 value가 1보다 크면 value -= 1
+                    if(slideMap.get(s[i-k]) > 1) slideMap.set(s[i-k], slideMap.get(s[i-k])-1);
+                    // 해당값의 value가 1이면 key, value 삭제
+                    else slideMap.delete(s[i-k]);
+
+                    
+                    // 반복문 실행단위마다 비교함수 실행
+                    if(compareMaps(slideMap, tMap)) answer++;
+                }
+
+                 
+
+                return answer;
+            }
+            
+            let a="bacaAacba";
+            let b="abc";
+            console.log(solution(a, b));
+        </script>
+    </body>
+</html>
