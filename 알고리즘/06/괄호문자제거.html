@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>괄호 문자 제거</title>
+    </head>
+    <body>
+        <script>
+            function solution(s){  
+                let answer;
+                let stack=[];
+                let flag = 0;
+                for(let i=0; i < s.length; i++) {
+                    stack.push(s[i]);
+                    if(s[i] === '(') {
+                        flag++;
+                    }
+                    else if(s[i] === ')') {
+                        if(flag !== 0) {
+                            for(let j=s.indexOf(')'); j>=s.lastIndexOf('('); j--) {
+                                stack.pop();
+                                flag--;
+                            }
+                        }
+                    }  
+                }
+                console.log(stack);
+                
+                return answer;
+            }
+
+            let str="(A(BC)D)EF(G(H)(IJ)K)LM(N)";
+            console.log(solution(str));
+        </script>
+    </body>
+</html>
