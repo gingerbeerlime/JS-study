@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>아나그램_해쉬, 투포인터, 슬라이딩 윈도우</title>
+    </head>
+    <body>
+        <script>
+            let count = 0;
+            function compareMaps(map1, map2){
+                //sMap, tMap
+                if(map1.size !== map2.size) return false
+                for(let [key, value] of map2) {
+                    if(!map1.has(key) || map1.get(key) !== value) return false;
+                }
+                return true;
+            }
+            function solution(s, t){
+                let answer=0;
+                let len = t.length;
+                let sMap = new Map();
+                let tMap = new Map();
+
+                // b문자열 tMap 초기화
+                for(let x of t) {
+                    if(tMap.has(x)) tMap.set(x, tMap.get(x)+1);
+                    else tMap.set(x, 1);
+                }
+                
+                // a문자 sMap 초기화
+                for(let i=0; i < len-1; i++) {
+                    if(sMap.has(s[i])) sMap.set(x, sMap.get(s[i])+1);
+                    else sMap.set(s[i], 1);
+                }
+
+                // lt 포인터 초기화
+                let lt = 0;
+                // sMap sliding 시키며 아나그램 비교
+                for(let rt=len-1; rt < s.length; rt++) {
+                    // rt값 추가
+                    if(sMap.has(s[rt])) sMap.set(s[rt], sMap.get(s[rt])+1);
+                    else sMap.set(s[rt], 1);
+                    // 아나그램 비교
+                    if(compareMaps(sMap, tMap)) answer++;
+                    // lt값 삭제
+                    if(sMap.get(s[lt]) > 1) sMap.set(s[lt], sMap.get(s[lt])-1);
+                    else sMap.delete(s[lt]);
+                    lt++;
+                }
+
+                return answer;
+            }
+            
+            let a="bacaAacba";
+            let b="abc";
+            console.log(solution(a, b));
+        </script>
+    </body>
+</html>
