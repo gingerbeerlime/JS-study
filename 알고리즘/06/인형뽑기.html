@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>크레인 인형뽑기</title>
+    </head>
+    <body>
+        <script>
+            function solution(board, moves){
+                let answer=0;
+                let stack=[];
+                let len=board.length;
+                // 인형 번호
+                let doll;
+
+                for(let x of moves) {
+                    // 인형 뽑기
+                    for(let i=0; i<board.length; i++) {
+                        doll=null;
+                        if(board[i][x-1]!==0) {
+                            doll=board[i][x-1];
+                            board[i][x-1]=0;
+                            break;
+                        } 
+                    }
+                    // 인형이 뽑혔을 때 바구니에 옮기기
+                    if(doll) {
+                        if(stack.length > 0) {
+                            // 바로 아래 인형과 같은 인형일 때
+                            if(stack[stack.length-1]==doll) {
+                                stack.pop();
+                                answer+=2;
+                            } else stack.push(doll);
+                        // 빈 바구니일 때
+                        } else stack.push(doll);
+                    }
+                }               
+                return answer;
+            }
+            
+            let a=[[0,0,0,0,0],
+                   [0,0,1,0,3],
+                   [0,2,5,0,1],
+                   [4,2,4,4,2],
+                   [3,5,1,3,1]];
+
+            let b=[1, 5, 3, 5, 1, 2, 1, 4];
+            console.log(solution(a, b));
+        </script>
+    </body>
+</html>
